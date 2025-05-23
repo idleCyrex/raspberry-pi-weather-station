@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+  <title>Données Capteurs - Temps Réel</title>
+</head>
+<body>
+
+  <div class="container">
+    <div class="weather-main">
+      <div id="temperature" class="temperature">--°C</div>
+      <div class="description">Loading...</div>
+    </div>
+    <div class="swiper mySwiper hourlyCard">
+      <div class="swiper-wrapper" id="hourly-container">
+        <!-- Hour cards go here -->
+      </div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">CO₂</div>
+        <div id="co2" class="card-value">-- ppm</div>
+      </div>
+      <div class="card">
+        <div class="card-title">TVOC</div>
+        <div id="tvoc" class="card-value">-- ppb</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Humidité</div>
+        <div id="humidity" class="card-value">-- %</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Pression</div>
+        <div id="pressure" class="card-value">-- hPa</div>
+      </div>
+    </div>
+
+    
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+function initializeHourlyWeather() {
+  const hourlyContainer = document.getElementById('hourly-container');
+  hourlyContainer.innerHTML = '';
+
+  fetch('/get_history')
+    .then(response => response.json())
+    .then(history => {
+      const hours = Array.from({ length: 24 }, (_, i) => i); // Generate 24-hour schedule
+
+      hours.forEach(hour => {
+        const data = history[hour]; // Match history data to the hour
+        const hourFormatted = `${hour.toString().padStart(2, '0')}:00`;
+
+        const hourCard = document.createElement('div');
+        hourCard.className = 'swiper-slide hour-card';
+
+        if (data && data.temperature !== null) {
+          hourCard.innerHTML = `
+            <div class="hour">${hourFormatted}</div>
+            <div class="hour-temp">${data.temperature.toFixed(1)}°C</div>
+            <div class="hour-humidity">${data.humidity.toFixed(1)}%</div>
+          `;
+        } else {
+          hourCard.innerHTML = `
+            <div class="hour">${hourFormatted}</div>
+            <div class="hour-temp">--°C</div>
+            <div class="hour-humidity">--%</div>
+          `;
+        }
+
+        hourlyContainer.appendChild(hourCard);
+      });
+
+      new Swiper('.mySwiper', {
+        slidesPerView: 4,
+        spaceBetween: 10,
+        freeMode: true,
+        initialSlide: 0, // Start at the first hour
+      });
+    })
+    .catch(error => console.error("Erreur de récupération de l'historique :", error));
+}
+
+function fetchData() {
+  fetch('/get_data')
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('co2').textContent = `${data.co2} ppm`;
+      document.getElementById('tvoc').textContent = `${data.tvoc} ppb`;
+      document.getElementById('temperature').textContent = `${data.temperature.toFixed(1)}°C`;
+      document.getElementById('humidity').textContent = `${data.humidity.toFixed(1)}%`;
+      document.getElementById('pressure').textContent = `${data.pressure.toFixed(1)} hPa`;
+
+      const descriptionElement = document.querySelector('.description');
+      const temperature = data.temperature;
+
+      if (temperature < 0) {
+        descriptionElement.textContent = "Froid glacial ❄️";
+      } else if (temperature < 10) {
+        descriptionElement.textContent = "Froid 🌬️";
+      } else if (temperature < 20) {
+        descriptionElement.textContent = "Frais 🌤️";
+      } else if (temperature < 25) {
+        descriptionElement.textContent = "Bon temps ☀️";
+      } else {
+        descriptionElement.textContent = "Chaud 🔥";
+      }
+    })
+    .catch(error => console.error("Erreur lors de la récupération des données :", error));
+}
+
+window.onload = () => {
+  initializeHourlyWeather();
+  fetchData();
+  setInterval(fetchData, 2000); // Refresh real-time data every 2 seconds
+  setInterval(initializeHourlyWeather, 60000); // Refresh hourly averages every minute
+};
+  </script>
+  
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</body>
+</html>
