@@ -6,9 +6,9 @@ Raspberry Pi Weather and Air Quality Monitor is a real-time environmental monito
 
 The data is served through a Flask web application and displayed on a dynamic, auto-updating frontend.
 
-![WhatsApp Image 2025-07-09 at 00 26 17 (2)](https://github.com/user-attachments/assets/c2e5ffe8-53d1-4ec7-bebd-9167ea19795f)
-![WhatsApp Image 2025-07-09 at 00 26 17 (1)](https://github.com/user-attachments/assets/4022a870-6de5-4d0a-baf2-9aed87179919)
-![WhatsApp Image 2025-07-09 at 00 26 17](https://github.com/user-attachments/assets/ea78489f-6f76-403a-9e10-f520d310b6c8)
+<img src="https://github.com/user-attachments/assets/c2e5ffe8-53d1-4ec7-bebd-9167ea19795f" width="300" />
+<img src="https://github.com/user-attachments/assets/4022a870-6de5-4d0a-baf2-9aed87179919" width="300" />
+<img src="https://github.com/user-attachments/assets/ea78489f-6f76-403a-9e10-f520d310b6c8" width="300" />
 
 ## Features
 
