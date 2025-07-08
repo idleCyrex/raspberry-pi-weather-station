@@ -37,53 +37,6 @@ def get_data():
     return jsonify(co2=co2, tvoc=tvoc, temperature=temperature,
                    humidity=humidity, pressure=pressure)
 
-@app.route('/get_history')
-def get_history():
-    if not os.path.exists(DATA_FILE):
-        return jsonify({})
-
-    with open(DATA_FILE, 'r') as f:
-        lines = f.readlines()
-
-    # Get current date in ISO format (YYYY-MM-DD)
-    current_date = datetime.now().date().isoformat()
-
-    # Group data by hour for the current date
-    hourly_data = {}
-    for line in lines:
-        parts = line.strip().split(',')
-        if len(parts) == 6:
-            timestamp, temperature, humidity, pressure, co2, tvoc = parts
-            try:
-                dt = datetime.fromisoformat(timestamp)
-            except ValueError:
-                continue
-            if dt.date().isoformat() == current_date:  # Check if the date matches the current date
-                hour = dt.hour
-
-                if hour not in hourly_data:
-                    hourly_data[hour] = {'temps': [], 'humidities': []}
-
-                hourly_data[hour]['temps'].append(float(temperature))
-                hourly_data[hour]['humidities'].append(float(humidity))
-
-    # Calculate averages
-    hourly_averages = {}
-    for hour in range(24):  # Ensure all 24 hours are included
-        if hour in hourly_data:
-            temps = hourly_data[hour]['temps']
-            humidities = hourly_data[hour]['humidities']
-            hourly_averages[hour] = {
-                'temperature': sum(temps) / len(temps) if temps else None,
-                'humidity': sum(humidities) / len(humidities) if humidities else None
-            }
-        else:
-            hourly_averages[hour] = {
-                'temperature': None,
-                'humidity': None
-            }
-
-    return jsonify(hourly_averages)
     
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
