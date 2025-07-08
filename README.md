@@ -52,9 +52,6 @@ Make sure you have the following:
 | SDA | GPIO 2 (SDA) |
 | SCL | GPIO 3 (SCL) |
 
-> Both sensors use the I2C interface and can share the same bus.
-
-
 ### Installation
 
 1. Enable I2C on your Raspberry Pi:
