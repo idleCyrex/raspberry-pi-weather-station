@@ -79,7 +79,10 @@ Make sure you have the following:
  python3 app.py
 ```
 5. Open your browser and go to:
- ```http://<your-raspberry-pi-ip>:5000/```
+   
+ ```
+ http://<your-raspberry-pi-ip>:5000/
+```
 
 
 ### File Structure
