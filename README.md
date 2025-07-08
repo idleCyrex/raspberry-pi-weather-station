@@ -3,22 +3,31 @@
 ## About
 
 Raspberry Pi Weather and Air Quality Monitor is a real-time environmental monitoring system using a Raspberry Pi and multiple sensors to track air quality (CO₂, TVOC), temperature, humidity, and atmospheric pressure. 
+
 The data is served through a Flask web application and displayed on a dynamic, auto-updating frontend.
+
 This project was developed as a final-year school assignment to demonstrate IoT and web integration on embedded systems.
 
 ## Features
 
 -🌫️ Real-time CO₂ and TVOC readings
+
 -🌡️ Temperature, humidity, and pressure monitoring
+
 -🧠 Flask-based backend with live API (/get_data)
+
 -🌐 Responsive frontend with auto-refreshing values (every 2 seconds)
+
 -📝 Data logging to sensor_data.txt with timestamps
 
 ## Demo
 
 Access the application from your Raspberry Pi or any device on the same network:
+
 ```http://<your-ip>:5000/```
+
 Example:
+
 ```http://192.168.1.100:5000/```
 
 ## Getting Started
@@ -26,6 +35,7 @@ Example:
 ### Prerequisites
 
 Make sure you have the following:
+
 - Raspberry Pi 4 (or compatible)
 - Raspberry Pi OS Lite installed
 - Python 3 and pip
@@ -41,7 +51,8 @@ Make sure you have the following:
 | GND | GND |
 | SDA | GPIO 2 (SDA) |
 | SCL | GPIO 3 (SCL) |
-Both sensors use the I2C interface and can share the same bus.
+
+> Both sensors use the I2C interface and can share the same bus.
 
 
 ### Installation
@@ -68,19 +79,19 @@ Both sensors use the I2C interface and can share the same bus.
  python3 app.py
 ```
 5. Open your browser and go to:
- http://<your-raspberry-pi-ip>:5000/
+ ```http://<your-raspberry-pi-ip>:5000/```
 
 
 ### File Structure
 
-.```
+
      app.py # Flask backend (main file)
           templates/
                index.html # Frontend UI
           static/
                style.css # Optional custom styles
      sensor_data.txt # Auto-generated data log
-```
+
 
 ## Notes
 
