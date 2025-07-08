@@ -71,8 +71,8 @@ Make sure you have the following:
 ```
 3. Clone or copy this project:
 ```bash
- git clone https://github.com/yourusername/Rpi-Weather-App.git
- cd Rpi-Weather-App
+ git clone https://github.com/idleCyrex/raspberry-pi-weather-air-quality-monitor.git
+ cd raspberry-pi-weather-air-quality-monitor
 ```
 4. Run the application:
 ```bash
@@ -84,14 +84,12 @@ Make sure you have the following:
 
 ### File Structure
 
-
      app.py # Flask backend (main file)
           templates/
                index.html # Frontend UI
           static/
                style.css # Optional custom styles
      sensor_data.txt # Auto-generated data log
-
 
 ## Notes
 
