@@ -5,6 +5,7 @@
 Raspberry Pi Weather and Air Quality Monitor is a real-time environmental monitoring system using a Raspberry Pi and multiple sensors to track air quality (CO₂, TVOC), temperature, humidity, and atmospheric pressure. 
 
 The data is served through a Flask web application and displayed on a dynamic, auto-updating frontend.
+
 ![image](https://github.com/user-attachments/assets/72d514a6-cbc8-4f23-a3b7-2486e80ac446)
 
 ## Features
