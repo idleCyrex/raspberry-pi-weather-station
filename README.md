@@ -53,6 +53,7 @@ Make sure you have the following:
 | GND | GND |
 | SDA | GPIO 2 (SDA) |
 | SCL | GPIO 3 (SCL) |
+| WAKE | GPIO 4 |
 
 ### Installation
 
